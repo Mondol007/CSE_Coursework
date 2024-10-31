@@ -1,0 +1,33 @@
+div.header{
+background-color:rgb(242, 243, 244);
+	height: 12.2%;
+	width:100%;
+	font-family:tahoma;
+	border: 1px solid darkblue;
+
+}
+table{
+height:100%;
+width:100%;
+}
+a{
+	color:gray;
+	background-color: #efefef;
+	text-decoration:none;
+}
+a:hover{
+        
+	background-color:red;
+	background-position:0px -70px;
+}
+td{
+background-color: #efefef;
+}
+img{
+height:100%;
+width:100%;
+
+}
+div.a{
+right:0%;
+}

@@ -1,0 +1,53 @@
+//RSA algorithm
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+using namespace std;
+
+int Calc(double base,int power,int n){
+	double s=base;
+	for(int i=2;i<=power;i++){
+		s=s*base;
+		s=fmod(s,n);
+	}
+	return s;
+}
+int main(){
+	int p,q,n,f,e,d,k;
+	double s,ct,pt;
+    p=13;q=11;
+    n=p*q;
+    f=(p-1)*(q-1);
+    //select e
+    for(int i=2;i<f;i++)
+      if(__gcd(i,f)==1)
+       {e=i;break;
+		} 
+     cout<<"e="<<e<<endl;   
+     //find d
+     //e=13;
+     int i=1;
+     while(1){
+     	s=(f*i+1.0)/e;
+     	k=(int)s;
+     	//cout<<"s="<<s<<" k="<<k<<endl;
+     	if(s==k){
+     		d=k;break;
+		 }
+		 i++;
+	 }
+     cout<<"d="<<d<<endl;
+     pt=13;
+    //ct=pow(pt,e);
+    cout<<"e="<<e<<" d="<<d<<endl;
+    cout<<"Plain Text:"<<pt<<endl;
+    ct=Calc(pt,e,n);
+    cout<<"Encrypted="<<ct<<endl;
+    
+    pt=Calc(ct,d,n);
+    cout<<"decrypted="<<pt<<endl;
+    
+    
+    
+	return 0;
+}

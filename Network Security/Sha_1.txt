@@ -1,0 +1,96 @@
+//SHA-1 algorithm
+#include <iostream>
+#include <string.h>
+#include <iomanip>
+using namespace std;
+
+int temp[8];
+char msg[100];
+int blk[512];
+int w[80][32];
+
+void Display(){
+	int i,j;
+	j=0;
+	cout<<setfill('0')<<setw(2)<<j<<": ";
+	for(i=1;i<=512;i++){
+		cout<<blk[i-1]; 
+		if(i%4==0)
+		  cout<<" ";
+		if( (i!=512)&&(i%32==0) ){
+			cout<<endl;
+			j++;
+			cout<<setfill('0')<<setw(2)<<j<<": ";
+		}
+		  
+		  
+		 
+	}
+	 
+}
+void Dec2Bin(int n){
+	int i;
+	for(i=0;i<8;i++)
+	  temp[i]=0;
+	i=0;
+	while(n>0){
+		temp[i]=n%2;
+		n=n/2;
+		i++;
+	}
+}
+int main(){
+	char ch='C';
+	int i,j,k;
+	for(i=0;i<512;i++)
+	  blk[i]=0;
+	  
+	strcpy(msg,"Cryptography");
+	k=-1;
+	for(i=0;i<strlen(msg);i++){
+		Dec2Bin(msg[i]);
+		cout<<msg[i]<<": ";
+		for(j=7;j>=0;j--){
+			cout<<temp[j]<<" ";
+			blk[++k]=temp[j];
+		}     
+	   cout<<endl;
+	} //end loop
+  Display();
+  //padding
+  j=512-strlen(msg)*8-64;
+  cout<<"\npadding bits="<<j<<endl;
+  if(j>0){
+  	blk[strlen(msg)*8]=1;
+  }
+  cout<<"\nAfter Padding 1\n";
+  Display();
+  //put size of msg
+  Dec2Bin(strlen(msg)*8);
+  cout<<"\nBinary of 96\n";
+  for(i=0;i<8;i++)
+   //cout<<temp[i];
+    blk[511-i]=temp[i];
+ cout<<" After inserting size"<<endl;
+ Display();
+ //Assign w[][]
+ j=0;
+ k=0;
+ for(i=1;i<=512;i++){
+ 	if(i%32==0){
+ 		 j++;
+ 		 k=0;
+	 }	
+ 	w[j][k]=blk[i-1];
+ 	k++;	
+ }
+ cout<<"\n Words are\n";
+ for(i=0;i<16;i++){
+ 	cout<<"w["<<i<<"]: ";
+ 	for(j=0;j<32;j++)
+     cout<<w[i][j];
+    cout<<endl;
+ }
+  
+ 	  
+}
